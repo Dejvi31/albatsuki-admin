@@ -1,49 +1,52 @@
 "use client";
-import { columns } from "@/components/collections/CollectionColumns";
+
 import { DataTable } from "@/components/custom ui/DataTable";
+import Loader from "@/components/custom ui/Loader";
+import { columns } from "@/components/products/ProductColumns";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Collections = () => {
+const Products = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [collections, setCollections] = useState([]);
+  const [products, setProducts] = useState<ProductType[]>([]);
 
-  const getCollections = async () => {
+  const getProducts = async () => {
     try {
-      const res = await fetch("/api/collections", { method: "GET" });
+      const res = await fetch("/api/products", { method: "GET" });
       const data = await res.json();
-      setCollections(data);
+      setProducts(data);
       setLoading(false);
     } catch (error) {
-      console.log("[collections_GET]", error);
+      console.log("[products_GET]", error);
     }
   };
 
   useEffect(() => {
-    getCollections();
+    getProducts();
   }, []);
-
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="px-10 py-5">
       <div className="flex items-center justify-between">
-        <p className="text-heading2-bold">Collections</p>
+        <p className="text-heading2-bold">Products</p>
         <Button
           type="button"
-          onClick={() => router.push("/collections/new")}
+          onClick={() => router.push("/products/new")}
           className="bg-red-500 text-white"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Create Collections
+          Create Product
         </Button>
       </div>
       <Separator className="bg-grey-1 my-4" />
-      <DataTable columns={columns} data={collections} searchKey="title" />
+      <DataTable columns={columns} data={products} searchKey="title" />
     </div>
   );
 };
 
-export default Collections;
+export default Products;

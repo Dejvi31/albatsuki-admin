@@ -26,6 +26,7 @@ const CollectionsDetails = ({
   useEffect(() => {
     getCollectionDetails();
   }, []);
+
   return loading ? (
     <Loader />
   ) : (

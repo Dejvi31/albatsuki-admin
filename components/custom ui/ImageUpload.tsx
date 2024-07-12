@@ -25,6 +25,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           <div key={id} className="relative w-[200px] h-[200px]">
             <div className="absolute top-0 right-0 z-10">
               <Button
+                type="button"
                 onClick={() => onRemove(url)}
                 size="sm"
                 className="bg-red-1 text-white"
@@ -44,7 +45,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       <CldUploadWidget uploadPreset="jmna6las" onUpload={onUpload}>
         {({ open }) => {
           return (
-            <Button onClick={() => open()} className="bg-grey-1 text-white">
+            <Button
+              type="button"
+              onClick={() => open()}
+              className="bg-grey-1 text-white"
+            >
               <Plus className="h-4 w-4 mr-2" /> Upload Image
             </Button>
           );
