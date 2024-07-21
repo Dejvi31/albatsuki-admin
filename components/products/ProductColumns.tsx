@@ -25,11 +25,15 @@ export const columns: ColumnDef<ProductType>[] = [
   },
   {
     accessorKey: "price",
-    header: "Price ($)",
+    header: "Price (Lek)",
   },
   {
     accessorKey: "expense",
-    header: "Expense ($)",
+    header: "Expense (Lek)",
+  },
+  {
+    accessorKey: "stock",
+    header: "Stock",
   },
   {
     id: "actions",

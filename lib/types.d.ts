@@ -18,6 +18,7 @@ type ProductType = {
   colors: [string];
   price: number;
   expense: number;
+  stock: number;
   createdAt: Date;
   updatedAt: Date;
 };

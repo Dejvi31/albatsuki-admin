@@ -25,9 +25,18 @@ export const POST = async (req: NextRequest) => {
       colors,
       price,
       expense,
+      stock,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price || !expense) {
+    if (
+      !title ||
+      !description ||
+      !media ||
+      !category ||
+      !price ||
+      !expense ||
+      !stock
+    ) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -42,6 +51,7 @@ export const POST = async (req: NextRequest) => {
       colors,
       price,
       expense,
+      stock,
     });
 
     await newProduct.save();

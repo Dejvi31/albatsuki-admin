@@ -24,7 +24,7 @@ import MultiSelect from "../custom ui/MultiSelect";
 import Loader from "../custom ui/Loader";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(20),
+  title: z.string().min(2).max(40),
   description: z.string().min(2).max(500).trim(),
   media: z.array(z.string()),
   category: z.string(),
@@ -32,8 +32,9 @@ const formSchema = z.object({
   tags: z.array(z.string()),
   sizes: z.array(z.string()),
   colors: z.array(z.string()),
-  price: z.coerce.number().min(0.1),
-  expense: z.coerce.number().min(0.1),
+  price: z.coerce.number().min(1),
+  expense: z.coerce.number().min(1),
+  stock: z.coerce.number().min(0),
 });
 
 interface ProductFormProps {
@@ -81,8 +82,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           tags: [],
           sizes: [],
           colors: [],
-          price: 0.1,
-          expense: 0.1,
+          price: 1,
+          expense: 1,
+          stock: 0,
         },
   });
 
@@ -196,7 +198,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price ($)</FormLabel>
+                  <FormLabel>Price (Lek)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -214,7 +216,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               name="expense"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Expense ($)</FormLabel>
+                  <FormLabel>Expense (Lek)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -342,6 +344,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                           ),
                         ])
                       }
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="stock"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Stock</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      onKeyDown={handleKeyPress}
+                      placeholder="Stock"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage className="text-red-1" />
